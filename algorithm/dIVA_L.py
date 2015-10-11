@@ -50,7 +50,7 @@ def set_para (X, verbose) :
             YdY[n,:] = np.sum(sum([Y[p][n,:,:].T * A[p][n,:,:] for p in range(P)]), 0)
             #for p in range(P) :
                 #YdY[n,:] = YdY[n,:] + np.sum(Y[p][n,:,:].T * A[p][n,:,:], 0)
-        YdY = np.sqrt(YdY)
+        YdY  = np.sqrt(YdY)
         cost = np.sum(YdY) * (np.sqrt(R-1)/R)
         for p in range(P) :
             for k in range(K[p]) :
