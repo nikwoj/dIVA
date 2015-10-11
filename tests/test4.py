@@ -12,7 +12,7 @@ def test4(X, A, verbose=False) :
     '''
     N,R,K = X.shape
     values = []
-    for k in range(K/2) :
+    for k in range(1,K/2) :
         X_m = np.zeros((N,R,k))
         X_m = X[:,:,0:2*k]
         W,_,_ = iva_l(X_m, verbose=False)
