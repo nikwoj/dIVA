@@ -14,9 +14,8 @@ def test4(X, A, verbose=False) :
     values = []
     for k in range(1,K/2) :
         A_m = A[:,:,0:2*k]
-        X_m = np.zeros((N,R,k))
         X_m = X[:,:,0:2*k]
-        W,_,_ = iva_l(X_m, verbose=False)
+        W,_,_ = iva_l(X_m, verbose=verbose)
         values.append( (2*k, joint_ISI(W,A_m)) )
 
     X_values   = [value_pair[0] for value_pair in values]
