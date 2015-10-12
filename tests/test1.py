@@ -1,33 +1,24 @@
 import numpy as np
-
 from dIVA_L import dIVA_L
-
 from joint_isi import joint_ISI
-
 import matplotlib.pyplot as plt
 
-def test1(X, A, subj_per_site, verbose=False, W=[]) :
+def test1(X, A, subj_per_site, verbose=False) :
     '''
     Fix subject per site, increase number of sites
     '''
     N,R,K = X.shape
     assert K >= subj_per_site
     X_m = []
-    W_m = []
     A_m = []
     values = []
-    if W == [] :
-        W = np.random.rand(N,N,K)
     K = [subj_per_site * num_sites for num_sites in range(1, K / subj_per_site + 1)]
     K.append(0)
-       
-    for iteration in range( len(K) - 1 ) :
+    for iteration in range(len(K)-1) :
         X_m.append(X[:,:,K[iteration-1]:K[iteration]])
-        W_m.append(W[:,:,K[iteration-1]:K[iteration]])
         A_m.append(A[:,:,K[iteration-1]:K[iteration]])
-        W_final,_,_ = dIVA_L(X_m, W_m, verbose)
-        values.append( (iteration+1, joint_ISI(W_final, A_m)) )
-    
+        W_m,_,_ = dIVA_L(X_m, verbose=verbose)
+        values.append( (iteration+1, joint_ISI(W_m, A_m)) )
     ISI_values = [value_pair[1] for value_pair in values]
     X_values   = [value_pair[0] for value_pair in values]
     
@@ -43,4 +34,3 @@ def test1(X, A, subj_per_site, verbose=False, W=[]) :
     for i in range(len(values)) :
         fil.write("%f,%f\n"%(values[i][1], values[i][0]))
     fil.close()
-
