@@ -21,9 +21,6 @@ def set_functions ( X, W_init=[], verbose=False ) :
     sqrt_YtY = np.zeros((N,R))
     
     def cost_and_grad ( W ) :
-        if verbose:
-            print "Running cost and gradient function"
-        
         W_master = vec_to_mat(W,N,K)
         for k in range(K) :
             Y[:,:,k] = np.dot(W_master[:,:,k], X[:,:,k])
@@ -78,12 +75,12 @@ def iva_l (X, W_init=[], verbose=False) :
     N,R,K = X.shape
     X = remove_mean(X)
     cost_and_grad, W = set_functions(X, W_init, verbose)
+    print W.shape
     W = mat_to_vec(W)
-    
     W, _, d = fmin_l_bfgs_b(func=cost_and_grad, x0=W)
     
     if verbose :
         print d
     W = vec_to_mat(W, N, K)
     
-    return W, d
+    return W, _, d
