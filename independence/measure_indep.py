@@ -25,7 +25,7 @@ def measure_indep (S, save_name, testing=False) :
         for k in range(K) :
             SS[n*K + k, :] = S[n,:,k]
     cov = np.dot(SS, SS.T)
-    cov = (cov - cov.mean()) / cov.var()
+    cov = (cov - cov.mean()) / np.abs(cov).max()
     
     if testing :
         cov_svd = svd(cov, compute_uv=False)
