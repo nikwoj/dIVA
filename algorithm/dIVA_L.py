@@ -2,6 +2,7 @@ import numpy as np
 from numpy.linalg import pinv, det
 from numpy import dot, log, sqrt
 
+import sys
 from scipy.optimize import fmin_l_bfgs_b
 
 from vec_mat import vec_to_mat, mat_to_vec
@@ -62,7 +63,7 @@ def set_para (X, verbose) :
         gradient = [np.zeros((N,N,K[p])) for p in range(P)]
         for p in range(P) :
             for n in range(N) :
-                B = A[p][n,:,:] * (((sqrt(R-1)/R)) / YdY[n,:] )
+                B = A[p][n,:,:] * (((sqrt(R-1)/R)) / (YdY[n,:] + sys.float_info.epsilon)  )
                 C = np.identity(K[p]) - dot(B, Y[p][n,:,:])
                 val = B + dot(C, A[p][n,:,:])
                 for k in range(K[p]) :

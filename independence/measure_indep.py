@@ -12,7 +12,7 @@ def measure_indep (S, save_name, testing=False) :
     S : Entire data set. Should be in Component, Samples, Subjects
         shape
     
-    save_name : Desired name to save plot to. Should NOT end in .png
+    save_name : Desired name to save plot to. Should NOT end in var.png
     
     Outputs:
     ========
@@ -35,5 +35,5 @@ def measure_indep (S, save_name, testing=False) :
     heatmap = plt.pcolor(cov, cmap=plt.cm.gray)
     
     cbar = plt.colorbar(heatmap)
-    plt.savefig(save_name + ".png")
+    plt.savefig("var_" + save_name + ".png")
     plt.close("all")
