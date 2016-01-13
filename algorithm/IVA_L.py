@@ -42,7 +42,7 @@ def set_functions ( X, W_init=[], verbose=False ) :
         ## Computing Gradient
         gradient = np.zeros((N,N,K))
         for n in range(N) :
-            B = A[:,:,n] * ( ( np.sqrt(R-1) / R ) / sqrt_YtY[n,:])
+            B = A[:,:,n] * ( ( np.sqrt(R-1) / R ) / (sys.float_info.epsilon + sqrt_YtY[n,:])
             C = np.identity(K) - np.dot(B, Y[n,:,:])
             value = B + np.dot(C, A[:,:,n])
             
